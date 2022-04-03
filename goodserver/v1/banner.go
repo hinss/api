@@ -14,4 +14,5 @@ type Banners struct {
 	IsDeleted uint8 `gorm:"column:is_deleted"`
 
 	UpdateTime time.Time `gorm:"column:update_time"`
+
 }
