@@ -1,6 +1,9 @@
 package v1
 
-import "time"
+import (
+	"time"
+	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+)
 
 // Category
 type Category struct {
@@ -21,4 +24,12 @@ type Category struct {
 	IsDeleted uint8 `gorm:"column:is_deleted"`
 
 	UpdateTime time.Time `gorm:"column:update_time"`
+}
+
+type CategoryList struct {
+
+	metav1.ListMeta
+
+	Items []*Category
+
 }
