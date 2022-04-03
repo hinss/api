@@ -15,4 +15,5 @@ type Banners struct {
 
 	UpdateTime time.Time `gorm:"column:update_time"`
 
+
 }
