@@ -4,7 +4,6 @@ import "time"
 
 // Category
 type Category struct {
-
 	Id int `gorm:"column:id"`
 
 	Name string `gorm:"column:name"`
@@ -22,6 +21,4 @@ type Category struct {
 	IsDeleted uint8 `gorm:"column:is_deleted"`
 
 	UpdateTime time.Time `gorm:"column:update_time"`
-
-
 }
