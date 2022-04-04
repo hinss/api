@@ -9,13 +9,13 @@ import (
 type Category struct {
 	Id int `gorm:"column:id;primaryKey"`
 
-	Name string `gorm:"column:name;not null"`
+	Name string `json:"name" gorm:"column:name;not null" binding:"required,min=3,max=20"`
 
-	ParentCategoryId int `gorm:"column:parent_category_id"`
+	ParentCategoryId int `json:"parent" gorm:"column:parent_category_id"`
 
-	Level int `gorm:"column:level;not null"`
+	Level int `json:"level" gorm:"column:level;not null" validation:"required,oneof=1 2 3"`
 
-	IsTab uint8 `gorm:"column:is_tab;not null"`
+	IsTab uint8 `json:"is_tab" gorm:"column:is_tab;not null"`
 
 	Url string `gorm:"column:url;not null"`
 
