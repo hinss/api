@@ -9,11 +9,11 @@ import (
 type Category struct {
 	Id int `gorm:"column:id;primaryKey"`
 
-	Name string `json:"name" gorm:"column:name;not null" binding:"required,min=3,max=20"`
+	Name string `json:"name" gorm:"column:name;not null" validate:"required,min=3,max=20"`
 
 	ParentCategoryId int `json:"parent" gorm:"column:parent_category_id"`
 
-	Level int `json:"level" gorm:"column:level;not null" validation:"required,oneof=1 2 3"`
+	Level int `json:"level" gorm:"column:level;not null" validate:"required,oneof=1 2 3"`
 
 	IsTab uint8 `json:"is_tab" gorm:"column:is_tab;not null"`
 
