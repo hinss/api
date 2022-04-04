@@ -26,6 +26,10 @@ type Category struct {
 	UpdateTime time.Time `gorm:"column:update_time"`
 }
 
+func (c Category) TableName() string {
+	return "category"
+}
+
 type CategoryList struct {
 
 	metav1.ListMeta
