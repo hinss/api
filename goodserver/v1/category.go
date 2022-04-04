@@ -13,7 +13,7 @@ type Category struct {
 
 	ParentCategoryId int `gorm:"column:parent_category_id"`
 
-	Level int `gorm:"column:level;not null"`
+	Level int `gorm:"column:level"`
 
 	IsTab uint8 `gorm:"column:is_tab;not null"`
 
