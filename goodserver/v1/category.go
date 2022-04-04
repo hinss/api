@@ -9,11 +9,11 @@ import (
 type Category struct {
 	Id int `gorm:"column:id;primaryKey"`
 
-	Name string `gorm:"column:name;not null"`
+	Name *string `gorm:"column:name;not null"`
 
 	ParentCategoryId int `gorm:"column:parent_category_id"`
 
-	Level int `gorm:"column:level"`
+	Level int `gorm:"column:level;not null"`
 
 	IsTab uint8 `gorm:"column:is_tab;not null"`
 
