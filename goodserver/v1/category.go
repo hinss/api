@@ -1,13 +1,13 @@
 package v1
 
 import (
-	"time"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"time"
 )
 
 // Category
 type Category struct {
-	Id int `gorm:"column:id;primaryKey"`
+	Id int `json:"id" gorm:"column:id;primaryKey"`
 
 	Name string `json:"name" validate:"required,min=3,max=20" gorm:"column:name;not null" `
 
@@ -31,9 +31,9 @@ func (c Category) TableName() string {
 }
 
 type CategoryList struct {
-
 	metav1.ListMeta
 
 	Items []*Category
 
+	jsonData string
 }
