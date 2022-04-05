@@ -11,7 +11,7 @@ type Category struct {
 
 	Name string `json:"name" validate:"required,min=3,max=20" gorm:"column:name;not null" `
 
-	ParentCategoryId int `json:"parent" validate:"omitempty" gorm:"column:parent_category_id"`
+	ParentCategoryId *int `json:"parent" validate:"omitempty" gorm:"column:parent_category_id"`
 
 	Level int `json:"level" validate:"required,oneof=1 2 3" gorm:"column:level;not null" `
 
