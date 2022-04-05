@@ -15,7 +15,7 @@ type Category struct {
 
 	Level int `json:"level" validate:"required,oneof=1 2 3" gorm:"column:level;not null" `
 
-	IsTab bool `json:"is_tab" validate:"required" gorm:"column:is_tab;not null"`
+	IsTab *bool `json:"is_tab" validate:"required,oneof=true false" gorm:"column:is_tab;not null"`
 
 	Url string `gorm:"column:url;not null"`
 
