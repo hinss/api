@@ -37,3 +37,11 @@ type CategoryList struct {
 
 	jsonData string
 }
+
+type CategoryInfo struct {
+	Id int `json:"id"`
+
+	Name string `json:"name"`
+
+	SubCategorys []*CategoryInfo `json:"sub_category"`
+}
