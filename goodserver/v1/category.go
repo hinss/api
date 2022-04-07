@@ -32,8 +32,7 @@ func (c *Category) TableName() string {
 
 func (c *Category) NewCategoryInfo() *CategoryInfo{
 	return &CategoryInfo{
-		Id: c.Id,
-		Name: c.Name,
+		Category: c,
 		SubCategorys: make([]*CategoryInfo, 0),
 	}
 }
@@ -47,9 +46,7 @@ type CategoryList struct {
 }
 
 type CategoryInfo struct {
-	Id int `json:"id"`
-
-	Name string `json:"name"`
+	*Category
 
 	SubCategorys []*CategoryInfo `json:"sub_category"`
 }
