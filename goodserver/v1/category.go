@@ -42,7 +42,7 @@ type CategoryList struct {
 
 	Items []*Category
 
-	jsonData string
+	JsonData string
 }
 
 type CategoryInfo struct {
