@@ -26,8 +26,16 @@ type Category struct {
 	UpdateTime time.Time `gorm:"column:update_time"`
 }
 
-func (c Category) TableName() string {
+func (c *Category) TableName() string {
 	return "category"
+}
+
+func (c *Category) NewCategoryInfo() *CategoryInfo{
+	return &CategoryInfo{
+		Id: c.Id,
+		Name: c.Name,
+		SubCategorys: make([]*CategoryInfo, 0),
+	}
 }
 
 type CategoryList struct {
