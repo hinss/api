@@ -50,3 +50,13 @@ type CategoryInfo struct {
 
 	SubCategorys []*CategoryInfo `json:"sub_category"`
 }
+
+// CategoryLevelInfo use to inner join second level and third level categroy
+type CategoryLevelInfo struct {
+	Pid         int    `gorm:"column:pId"`
+	Pname       string `gorm:"column:pName"`
+	ParentId	int    `gorm:"column:parentId"`
+	SubId       int    `gorm:"column:subId"`
+	SubName     string `gorm:"column:subName"`
+	SubParentId int    `gorm:"column:subPid"`
+}
