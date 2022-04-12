@@ -30,9 +30,9 @@ func (c *Category) TableName() string {
 	return "category"
 }
 
-func (c *Category) NewCategoryInfo() *CategoryInfo{
+func (c *Category) NewCategoryInfo() *CategoryInfo {
 	return &CategoryInfo{
-		Category: c,
+		Category:     c,
 		SubCategorys: make([]*CategoryInfo, 0),
 	}
 }
@@ -55,8 +55,10 @@ type CategoryInfo struct {
 type CategoryLevelInfo struct {
 	Pid         int    `gorm:"column:pId"`
 	Pname       string `gorm:"column:pName"`
-	ParentId	int    `gorm:"column:parentId"`
+	ParentId    int    `gorm:"column:parentId"`
+	Plevel      int    `gorm:"column:pLevel"`
 	SubId       int    `gorm:"column:subId"`
 	SubName     string `gorm:"column:subName"`
 	SubParentId int    `gorm:"column:subPid"`
+	SubLevel    int    `gorm:"column:subLevel"`
 }
