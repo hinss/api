@@ -2,12 +2,13 @@ package v1
 
 import (
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
-	"time"
+	mymetav1 "github.com/hinss/api/pkg/meta/v1"
 )
 
 // Category
 type Category struct {
-	Id int `json:"id" gorm:"column:id;primaryKey"`
+
+	mymetav1.ObjectMeta
 
 	Name string `json:"name" validate:"required,min=3,max=20" gorm:"column:name;not null" `
 
@@ -19,11 +20,6 @@ type Category struct {
 
 	Url string `gorm:"column:url;not null"`
 
-	AddTime time.Time `gorm:"column:add_time"`
-
-	IsDeleted uint8 `gorm:"column:is_deleted"`
-
-	UpdateTime time.Time `gorm:"column:update_time"`
 }
 
 func (c *Category) TableName() string {
