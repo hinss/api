@@ -1,14 +1,13 @@
 package v1
 
 import (
-	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
-	mymetav1 "github.com/hinss/api/pkg/meta/v1"
+	metav1 "github.com/hinss/api/pkg/meta/v1"
 )
 
 // Category
 type Category struct {
 
-	mymetav1.ObjectMeta
+	metav1.ObjectMeta
 
 	Name string `json:"name" validate:"required,min=3,max=20" gorm:"column:name;not null" `
 
@@ -18,7 +17,7 @@ type Category struct {
 
 	IsTab *bool `json:"is_tab" validate:"required" gorm:"column:is_tab;not null"`
 
-	Url string `gorm:"column:url;not null"`
+	Url string `json:"url" gorm:"column:url;not null"`
 
 }
 

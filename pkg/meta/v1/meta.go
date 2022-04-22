@@ -14,6 +14,3 @@ type Object interface {
 	GetUpdatedAt() time.Time
 	SetUpdatedAt(updatedAt time.Time)
 }
-
-
-

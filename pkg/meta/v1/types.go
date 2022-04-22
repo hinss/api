@@ -52,6 +52,10 @@ func (o *ObjectMeta) BeforeCreate(db *gorm.DB) error {
 	return nil
 }
 
+type ListMeta struct {
+	TotalCount int64 `json:"totalCount,omitempty"`
+}
+
 
 
 
