@@ -6,7 +6,6 @@ import (
 
 // Category
 type Category struct {
-
 	metav1.ObjectMeta
 
 	Name string `json:"name" validate:"required,min=3,max=20" gorm:"column:name;not null" `
@@ -18,7 +17,6 @@ type Category struct {
 	IsTab *bool `json:"is_tab" validate:"required" gorm:"column:is_tab;not null"`
 
 	Url string `json:"url" gorm:"column:url;not null"`
-
 }
 
 func (c *Category) TableName() string {

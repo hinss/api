@@ -9,7 +9,7 @@ import (
 // ObjectMeta is metadata that all persisted resources must have, which includes all objects
 // ObjectMeta is also used by gorm.
 type ObjectMeta struct {
-	ID         int32                 `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	Id         int                   `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
 	AddTime    time.Time             `gorm:"column:add_time;not null" json:"add_time"`
 	UpdateTime time.Time             `gorm:"column:update_time;not null" json:"update_time"`
 	IsDeleted  soft_delete.DeletedAt `json:"isDeleted" gorm:"column:is_deleted;softDelete:flag"`

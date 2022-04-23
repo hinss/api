@@ -6,8 +6,8 @@ import (
 )
 
 // Validate validates that a user object is valid.
-func (c *Category) Validate() field.ErrorList {
-	val := validation.NewValidator(c)
+func Validate(validated interface{}) field.ErrorList {
+	val := validation.NewValidator(validated)
 	allErrs := val.Validate()
 
 	return allErrs
