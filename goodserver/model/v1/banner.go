@@ -13,9 +13,10 @@ const TableNameBanner = "banner"
 // Banner mapped from table <banner>
 type Banner struct {
 	metav1.ObjectMeta
-	Image      string    `gorm:"column:image;not null" validate:"required" json:"image"`
-	URL        string    `gorm:"column:url;not null" json:"url"`
-	Index      int32     `gorm:"column:index;not null" validate:"required" json:"index"`
+	Image      string    `gorm:"column:image;not null" json:"image"`
+	// URL是一个跳转地址
+	URL        string    `gorm:"column:url;not null" validate:"required" json:"url"`
+	Index      int32     `gorm:"column:index;not null" validate:"required,lte=100" json:"index"`
 }
 
 // TableName Banner's table name
