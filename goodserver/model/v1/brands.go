@@ -13,7 +13,7 @@ const TableNameBrands = "brands"
 // Brands mapped from table <brands>
 type Brands struct {
 	metav1.ObjectMeta
-	Name       string    `gorm:"column:name;not null" json:"name"`
+	Name       string    `gorm:"column:name;not null" validate:"required" json:"name"`
 	Logo       string    `gorm:"column:logo;default:'NULL'" json:"logo"`
 }
 
