@@ -22,16 +22,16 @@ func main() {
 	}
 
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "/Users/zhanghaoxuan/go/src/api/goodserver/query/v1/categorybrand", // query输出的路径
+		OutPath: "/Users/zhanghaoxuan/go/src/api/goodserver/query/v1/category", // query输出的路径
 		//OutFile: "banner_query.go", //输出的文件名
-		ModelPkgPath: "/Users/zhanghaoxuan/go/src/api/goodserver/model/v1",
+		//ModelPkgPath: "/Users/zhanghaoxuan/go/src/api/goodserver/v1",
 		Mode: gen.WithDefaultQuery,
 	})
 
 	g.UseDB(dal.DB)
 
 	// generate all table from database
-	g.ApplyBasic(g.GenerateModelAs("category_brand", "CategoryBrand"))
+	g.ApplyBasic(g.GenerateModelAs("category", "Category"))
 
 	g.Execute()
 }

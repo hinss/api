@@ -13,8 +13,8 @@ const TableNameCategoryBrand = "category_brand"
 // CategoryBrand mapped from table <category_brand>
 type CategoryBrand struct {
 	metav1.ObjectMeta
-	CategoryID int32     `gorm:"column:category_id;not null" json:"category_id"`
-	BrandID    int32     `gorm:"column:brand_id;not null" json:"brand_id"`
+	CategoryID int32     `gorm:"column:category_id;not null" validate:"required" json:"category_id"`
+	BrandID    int32     `gorm:"column:brand_id;not null" validate:"required" json:"brand_id"`
 }
 
 // TableName CategoryBrand's table name

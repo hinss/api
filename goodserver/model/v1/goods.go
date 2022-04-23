@@ -6,6 +6,7 @@ package v1
 
 import (
 	metav1 "github.com/hinss/api/pkg/meta/v1"
+	"github.com/marmotedu/component-base/pkg/json"
 )
 
 const TableNameGoods = "goods"
@@ -13,27 +14,101 @@ const TableNameGoods = "goods"
 // Goods mapped from table <goods>
 type Goods struct {
 	metav1.ObjectMeta
-	CategoryID      int32     `gorm:"column:category_id;not null" json:"category_id"`
-	BrandID         int32     `gorm:"column:brand_id;not null" json:"brand_id"`
-	OnSale          bool      `gorm:"column:on_sale;not null" json:"on_sale"`
-	GoodsSn         string    `gorm:"column:goods_sn;not null" json:"goods_sn"`
-	Name            string    `gorm:"column:name;not null" json:"name"`
-	ClickNum        int32     `gorm:"column:click_num;not null" json:"click_num"`
-	SoldNum         int32     `gorm:"column:sold_num;not null" json:"sold_num"`
-	FavNum          int32     `gorm:"column:fav_num;not null" json:"fav_num"`
-	Stocks          int32     `gorm:"column:stocks;not null" json:"stocks"`
-	MarketPrice     float32   `gorm:"column:market_price;not null" json:"market_price"`
-	ShopPrice       float32   `gorm:"column:shop_price;not null" json:"shop_price"`
-	GoodsBrief      string    `gorm:"column:goods_brief;not null" json:"goods_brief"`
-	ShipFree        bool      `gorm:"column:ship_free;not null" json:"ship_free"`
-	Images          string    `gorm:"column:images;not null" json:"images"`
-	DescImages      string    `gorm:"column:desc_images;not null" json:"desc_images"`
-	GoodsFrontImage string    `gorm:"column:goods_front_image;not null" json:"goods_front_image"`
-	IsNew           bool      `gorm:"column:is_new;not null" json:"is_new"`
-	IsHot           bool      `gorm:"column:is_hot;not null" json:"is_hot"`
+	CategoryID      int32   `gorm:"column:category_id;not null" json:"category_id"`
+	BrandID         int32   `gorm:"column:brand_id;not null" json:"brand_id"`
+	OnSale          bool    `gorm:"column:on_sale;not null" json:"on_sale"`
+	GoodsSn         string  `gorm:"column:goods_sn;not null" json:"goods_sn"`
+	Name            string  `gorm:"column:name;not null" json:"name"`
+	ClickNum        int32   `gorm:"column:click_num;not null" json:"click_num"`
+	SoldNum         int32   `gorm:"column:sold_num;not null" json:"sold_num"`
+	FavNum          int32   `gorm:"column:fav_num;not null" json:"fav_num"`
+	Stocks          int32   `gorm:"column:stocks;not null" json:"stocks"`
+	MarketPrice     float32 `gorm:"column:market_price;not null" json:"market_price"`
+	ShopPrice       float32 `gorm:"column:shop_price;not null" json:"shop_price"`
+	GoodsBrief      string  `gorm:"column:goods_brief;not null" json:"goods_brief"`
+	ShipFree        bool    `gorm:"column:ship_free;not null" json:"ship_free"`
+	Images          string  `gorm:"column:images;not null" json:"images"`
+	DescImages      string  `gorm:"column:desc_images;not null" json:"desc_images"`
+	GoodsFrontImage string  `gorm:"column:goods_front_image;not null" json:"goods_front_image"`
+	IsNew           bool    `gorm:"column:is_new;not null" json:"is_new"`
+	IsHot           bool    `gorm:"column:is_hot;not null" json:"is_hot"`
 }
 
 // TableName Goods's table name
 func (*Goods) TableName() string {
 	return TableNameGoods
+}
+
+// GoodsForm use for gin to model binding when create or update goods
+type GoodsForm struct {
+	metav1.ObjectMeta
+	Name        string   `form:"name" json:"name" validate:"required,min=2,max=100"`
+	GoodsSn     string   `form:"goods_sn" json:"goods_sn" validate:"required,min=2,lt=20"`
+	Stocks      int32    `form:"stocks" json:"stocks" validate:"required,min=1"`
+	CategoryId  int32    `form:"category" json:"category" validate:"required"`
+	MarketPrice float32  `form:"market_price" json:"market_price" validate:"required,min=0"`
+	ShopPrice   float32  `form:"shop_price" json:"shop_price" validate:"required,min=0"`
+	GoodsBrief  string   `form:"goods_brief" json:"goods_brief" validate:"required,min=3"`
+	Images      []string `form:"images" json:"images" validate:"required,min=1"`
+	DescImages  []string `form:"desc_images" json:"desc_images" validate:"required,min=1"`
+	ShipFree    *bool    `form:"ship_free" json:"ship_free" validate:"required"`
+	FrontImage  string   `form:"front_image" json:"front_image" validate:"required,url"`
+	Brand       int32    `form:"banner" json:"banner" validate:"required"`
+}
+
+func (gf *GoodsForm) Convert2Goods() (*Goods, error) {
+	imagesJson, err := json.Marshal(gf.Images)
+	if err != nil {
+		return nil, err
+	}
+
+	imagesDescJson, err := json.Marshal(gf.DescImages)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Goods{
+		Name: gf.Name,
+		GoodsSn: gf.GoodsSn,
+		Stocks: gf.Stocks,
+		CategoryID: gf.CategoryId,
+		BrandID: gf.Brand,
+		MarketPrice: gf.MarketPrice,
+		ShopPrice: gf.ShopPrice,
+		GoodsBrief: gf.GoodsBrief,
+		Images: string(imagesJson),
+		DescImages: string(imagesDescJson),
+		GoodsFrontImage: gf.FrontImage,
+		ShipFree: *gf.ShipFree,
+	}, nil
+}
+
+// GoodsStatusForm use for gin to model binding when update goods status
+type GoodsStatusForm struct {
+	metav1.ObjectMeta
+	IsNew  *bool `form:"new" json:"new" validate:"required"`
+	IsHot  *bool `form:"hot" json:"hot" validate:"required"`
+	OnSale *bool `form:"sale" json:"sale" validate:"required"`
+}
+
+func (gsf *GoodsStatusForm) Convert2Goods() *Goods {
+	return &Goods{
+		IsNew: *gsf.IsNew,
+		IsHot: *gsf.IsHot,
+		OnSale: *gsf.OnSale,
+	}
+}
+
+// GoodsFilterRequest use for goods to filter data
+type GoodsFilterRequest struct {
+	PriceMin    int32  `json:"priceMin,omitempty"`
+	PriceMax    int32  `json:"priceMax,omitempty"`
+	IsHot       bool   `json:"isHot,omitempty"`
+	IsNew       bool   `json:"isNew,omitempty"`
+	IsTab       bool   `json:"isTab,omitempty"`
+	TopCategory int32  `json:"topCategory,omitempty"`
+	Pages       int32  `json:"pages,omitempty"`
+	PagePerNums int32  `json:"pagePerNums,omitempty"`
+	KeyWords    string `json:"keyWords,omitempty"`
+	Brand       int32  `json:"banner,omitempty"`
 }
