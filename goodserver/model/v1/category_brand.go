@@ -8,16 +8,16 @@ import (
 	metav1 "github.com/hinss/api/pkg/meta/v1"
 )
 
-const TableNameGoodsCategoryBanner = "good_category_brand"
+const TableNameCategoryBrand = "category_brand"
 
-// GoodsCategoryBanner mapped from table <good_category_brand>
-type GoodsCategoryBanner struct {
+// CategoryBrand mapped from table <category_brand>
+type CategoryBrand struct {
 	metav1.ObjectMeta
 	CategoryID int32     `gorm:"column:category_id;not null" json:"category_id"`
 	BrandID    int32     `gorm:"column:brand_id;not null" json:"brand_id"`
 }
 
-// TableName GoodsCategoryBanner's table name
-func (*GoodsCategoryBanner) TableName() string {
-	return TableNameGoodsCategoryBanner
+// TableName CategoryBrand's table name
+func (*CategoryBrand) TableName() string {
+	return TableNameCategoryBrand
 }
