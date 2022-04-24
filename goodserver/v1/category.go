@@ -55,3 +55,5 @@ type CategoryLevelInfo struct {
 	SubParentId int    `gorm:"column:subPid"`
 	SubLevel    int    `gorm:"column:subLevel"`
 }
+
+

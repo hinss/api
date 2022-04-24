@@ -101,14 +101,40 @@ func (gsf *GoodsStatusForm) Convert2Goods() *Goods {
 
 // GoodsFilterRequest use for goods to filter data
 type GoodsFilterRequest struct {
-	PriceMin    int32  `json:"priceMin,omitempty"`
-	PriceMax    int32  `json:"priceMax,omitempty"`
-	IsHot       bool   `json:"isHot,omitempty"`
-	IsNew       bool   `json:"isNew,omitempty"`
-	IsTab       bool   `json:"isTab,omitempty"`
-	TopCategory int32  `json:"topCategory,omitempty"`
-	Pages       int32  `json:"pages,omitempty"`
-	PagePerNums int32  `json:"pagePerNums,omitempty"`
-	KeyWords    string `json:"keyWords,omitempty"`
-	Brand       int32  `json:"banner,omitempty"`
+	PriceMin    int32  `json:"priceMin,omitempty" desc:"最小价格"`
+	PriceMax    int32  `json:"priceMax,omitempty" desc:"最大价格"`
+	IsHot       bool   `json:"isHot,omitempty" desc:"是否热门"`
+	IsNew       bool   `json:"isNew,omitempty" desc:"是否最新"`
+	IsTab       bool   `json:"isTab,omitempty" desc:"是否tab"`
+	TopCategory int32  `json:"topCategory,omitempty" desc:"根据分类id查询"`
+	Pages       int32  `json:"pages,omitempty" desc:"页数"`
+	PagePerNums int32  `json:"pagePerNums,omitempty" desc:"每页条目数"`
+	KeyWords    string `json:"keyWords,omitempty" desc:"关键词"`
+	Brand       int32  `json:"banner,omitempty" desc:"品牌id"`
+}
+
+// CategoryBriefInfo struct use in GoodsInfoResponse
+type CategoryBriefInfo struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+// BrandsInfo struct use in GoodsInfoResponse
+type BrandsInfo struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+	Logo string `json:"logo"`
+}
+
+// GoodsInfoResponse use in GoodsListResponse
+type GoodsInfoResponse struct {
+	*Goods
+	*CategoryBriefInfo
+	*BrandsInfo
+}
+
+// GoodsListResponse use in Goods search
+type GoodsListResponse struct {
+	Total int64                `json:"total,omitempty"`
+	Data  []*GoodsInfoResponse `json:"data,omitempty"`
 }
