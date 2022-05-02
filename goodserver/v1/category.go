@@ -2,6 +2,7 @@ package v1
 
 import (
 	metav1 "github.com/hinss/api/pkg/meta/v1"
+	"sync"
 )
 
 // Category
@@ -36,6 +37,15 @@ type CategoryList struct {
 	Items []*Category
 
 	JsonData string
+
+	sync.Mutex
+	TopItems []*CategoryInfo
+}
+
+func (cl *CategoryList) AddTop(info *CategoryInfo){
+	cl.Lock()
+	defer cl.Unlock()
+	cl.TopItems = append(cl.TopItems, info)
 }
 
 type CategoryInfo struct {
@@ -55,5 +65,3 @@ type CategoryLevelInfo struct {
 	SubParentId int    `gorm:"column:subPid"`
 	SubLevel    int    `gorm:"column:subLevel"`
 }
-
-
