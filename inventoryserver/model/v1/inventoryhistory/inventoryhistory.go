@@ -4,18 +4,13 @@
 
 package inventoryhistory
 
-import (
-	"time"
-)
+import metav1 "github.com/hinss/api/pkg/meta/v1"
 
 const TableNameInventoryHistory = "inventoryhistory"
 
 // InventoryHistory mapped from table <inventoryhistory>
 type InventoryHistory struct {
-	ID             int32     `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	AddTime        time.Time `gorm:"column:add_time;not null" json:"add_time"`
-	IsDeleted      bool      `gorm:"column:is_deleted;not null" json:"is_deleted"`
-	UpdateTime     time.Time `gorm:"column:update_time;not null" json:"update_time"`
+	metav1.ObjectMeta
 	OrderSn        string    `gorm:"column:order_sn;not null" json:"order_sn"`
 	OrderInvDetail string    `gorm:"column:order_inv_detail;not null" json:"order_inv_detail"`
 	Status         int32     `gorm:"column:status;not null" json:"status"`
