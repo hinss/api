@@ -13,13 +13,15 @@ import (
 
 	"gorm.io/gen"
 	"gorm.io/gen/field"
+
+	v1 "github.com/hinss/api/inventoryserver/model/v1/inventory"
 )
 
 func newInventory(db *gorm.DB) inventory {
 	_inventory := inventory{}
 
 	_inventory.inventoryDo.UseDB(db)
-	_inventory.inventoryDo.UseModel(&inventory.Inventory{})
+	_inventory.inventoryDo.UseModel(&v1.Inventory{})
 
 	tableName := _inventory.inventoryDo.TableName()
 	_inventory.ALL = field.NewField(tableName, "*")
@@ -195,57 +197,57 @@ func (i inventoryDo) Unscoped() *inventoryDo {
 	return i.withDO(i.DO.Unscoped())
 }
 
-func (i inventoryDo) Create(values ...*inventory.Inventory) error {
+func (i inventoryDo) Create(values ...*v1.Inventory) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return i.DO.Create(values)
 }
 
-func (i inventoryDo) CreateInBatches(values []*inventory.Inventory, batchSize int) error {
+func (i inventoryDo) CreateInBatches(values []*v1.Inventory, batchSize int) error {
 	return i.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (i inventoryDo) Save(values ...*inventory.Inventory) error {
+func (i inventoryDo) Save(values ...*v1.Inventory) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return i.DO.Save(values)
 }
 
-func (i inventoryDo) First() (*inventory.Inventory, error) {
+func (i inventoryDo) First() (*v1.Inventory, error) {
 	if result, err := i.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*inventory.Inventory), nil
+		return result.(*v1.Inventory), nil
 	}
 }
 
-func (i inventoryDo) Take() (*inventory.Inventory, error) {
+func (i inventoryDo) Take() (*v1.Inventory, error) {
 	if result, err := i.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*inventory.Inventory), nil
+		return result.(*v1.Inventory), nil
 	}
 }
 
-func (i inventoryDo) Last() (*inventory.Inventory, error) {
+func (i inventoryDo) Last() (*v1.Inventory, error) {
 	if result, err := i.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*inventory.Inventory), nil
+		return result.(*v1.Inventory), nil
 	}
 }
 
-func (i inventoryDo) Find() ([]*inventory.Inventory, error) {
+func (i inventoryDo) Find() ([]*v1.Inventory, error) {
 	result, err := i.DO.Find()
-	return result.([]*inventory.Inventory), err
+	return result.([]*v1.Inventory), err
 }
 
-func (i inventoryDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*inventory.Inventory, err error) {
-	buf := make([]*inventory.Inventory, 0, batchSize)
+func (i inventoryDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*v1.Inventory, err error) {
+	buf := make([]*v1.Inventory, 0, batchSize)
 	err = i.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -253,7 +255,7 @@ func (i inventoryDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) e
 	return results, err
 }
 
-func (i inventoryDo) FindInBatches(result *[]*inventory.Inventory, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (i inventoryDo) FindInBatches(result *[]*v1.Inventory, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return i.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -279,23 +281,23 @@ func (i inventoryDo) Preload(fields ...field.RelationField) *inventoryDo {
 	return &i
 }
 
-func (i inventoryDo) FirstOrInit() (*inventory.Inventory, error) {
+func (i inventoryDo) FirstOrInit() (*v1.Inventory, error) {
 	if result, err := i.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*inventory.Inventory), nil
+		return result.(*v1.Inventory), nil
 	}
 }
 
-func (i inventoryDo) FirstOrCreate() (*inventory.Inventory, error) {
+func (i inventoryDo) FirstOrCreate() (*v1.Inventory, error) {
 	if result, err := i.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*inventory.Inventory), nil
+		return result.(*v1.Inventory), nil
 	}
 }
 
-func (i inventoryDo) FindByPage(offset int, limit int) (result []*inventory.Inventory, count int64, err error) {
+func (i inventoryDo) FindByPage(offset int, limit int) (result []*v1.Inventory, count int64, err error) {
 	result, err = i.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
