@@ -1,4 +1,4 @@
-package v1
+package common
 
 import (
 	"github.com/marmotedu/component-base/pkg/validation"
