@@ -6,11 +6,11 @@ import (
 	"regexp"
 )
 
-// RegisterForm use when
+// RegisterForm use when register a user.
 type RegisterForm struct {
-	Mobile   string `form:"mobile" json:"mobile" binding:"required"`
-	PassWord string `form:"password" json:"password" binding:"required,min=3,max=10"`
-	Code     string `form:"code" json:"code" binding:"required"`
+	Mobile   string `form:"mobile" json:"mobile" validate:"required"`
+	PassWord string `form:"password" json:"password" validate:"required,min=3,max=10"`
+	Code     string `form:"code" json:"code" validate:"required"`
 }
 
 func (r *RegisterForm) ValidateMobile() field.ErrorList {
