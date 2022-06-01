@@ -11,6 +11,9 @@ type RegisterForm struct {
 	Mobile   string `form:"mobile" json:"mobile" validate:"required"`
 	PassWord string `form:"password" json:"password" validate:"required,min=3,max=10"`
 	Code     string `form:"code" json:"code" validate:"required"`
+	// 兼容 iam loginInfo basic认证登录字段
+	Username string `form:"username" json:"username" validate:"required"`
+
 }
 
 func (r *RegisterForm) ValidateMobile() field.ErrorList {
